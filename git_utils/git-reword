@@ -1,0 +1,16 @@
+#!/bin/bash
+
+. "$(git --exec-path)/git-sh-setup"
+
+set -xueo pipefail
+
+function main() {
+	local -r commit_id="$(git rev-parse --short "${1}")"
+
+	cd_to_toplevel
+	git stash push --message "git-reword-${commit_id}"
+	GIT_SEQUENCE_EDITOR="sed -z -i 's/^p ${commit_id}/r ${commit_id}/'" git rebase --verbose --interactive "${commit_id}~1"
+	git stash pop || true
+}
+
+main "${@}"

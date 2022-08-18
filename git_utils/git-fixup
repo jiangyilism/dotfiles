@@ -1,0 +1,23 @@
+#!/bin/bash
+
+. "$(git --exec-path)/git-sh-setup"
+
+set -xueo pipefail
+
+function main() {
+	local -r commit_id="$(git rev-parse --short "${1}")"
+	local -r submodules_list="$(git submodule foreach --quiet 'echo "${name}"')"
+
+	cd_to_toplevel
+	git add --verbose --update
+
+	if [[ -n "${submodules_list}" ]]; then
+		git reset ${submodules_list}
+	fi
+
+	git commit --fixup="${commit_id}"
+	GIT_SEQUENCE_EDITOR=: git rebase --verbose \
+		--autosquash --autostash --interactive "${commit_id}~1"
+}
+
+main "${@}"

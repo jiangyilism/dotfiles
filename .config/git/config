@@ -1,0 +1,79 @@
+[alias]
+	amend = commit --amend --no-edit
+	br = branch
+	branch-exists = "!f() { git rev-parse --verify ${1}; }; f"
+	branch-name = rev-parse --abbrev-ref HEAD
+	co = checkout
+	df = diff -w
+	lg = log
+	ls = log --oneline
+	sh = show -w
+	st = status
+[am]
+	threeWay = true
+[branch]
+	autosetupmerge = always
+	autosetuprebase = always
+[color]
+	interactive = auto
+	pager = true
+	ui = auto
+[color "branch"]
+	current = yellow bold
+	local = green bold
+	remote = cyan bold
+[color "diff"]
+	frag = magenta bold
+	meta = yellow bold
+	new = green bold
+	old = red bold
+	whitespace = red reverse
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+	whitespace = fix,space-before-tab,trailing-space,cr-at-eol,-indent-with-non-tab
+[diff]
+	algorithm = histogram
+	colorMoved = dimmed-zebra
+	context = 8
+	tool = vimdiff
+	wsErrorHighlight = all
+[difftool]
+	prompt = false
+[gitflow "prefix"]
+	feature = feature-
+	hotfix = hotfix-
+	release = release-
+	support = support-
+	versiontag = v
+[github]
+	token = token
+	user = jiangyilism
+[merge]
+	autoStash = true
+[pull]
+	rebase = true
+[push]
+	default = current
+[rebase]
+	abbreviateCommands = true
+	autoSquash = true
+	autoStash = true
+[rerere]
+	autoupdate = 1
+	enabled = 1
+[reset]
+	quiet = false
+[sendemail]
+	confirm = always
+[sequence]
+	editor = vim
+[user]
+	email = jiangyilism@gmail.com
+	name = Jiang Yi
+[credential]
+	helper = cache

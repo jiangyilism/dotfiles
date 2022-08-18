@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -ueo pipefail
+
+function main() {
+	local -r DATE="${1:-01-01-1970}"
+	local -r all_players=$(git shortlog --all --after=${DATE} | grep '^\w' | sed 's/\(.*\) ([0-9]*):/\1/')
+	local highest_num_of_commits=0
+	local highest_num_of_lines=0
+
+	echo "Activity after ${DATE}"
+
+	if [[ -z "${all_players}" ]]; then
+		echo "No commits after ${DATE}. Try an earlier date."
+		exit 0
+	fi
+
+	IFS='
+'
+
+	for player in ${all_players}; do
+		num_of_commits=$(git shortlog --all --after=${DATE} --author="${player}" | grep ^"${player} (" | sed "s/${player} (\(.*\)):/\1/")
+		num_of_lines=$(git log --all --after=${DATE} --author="${player}" --pretty=format: --stat | (grep '[0-9]* files changed, [0-9]* insertions.*, [0-9]* deletions' || true) | awk '{ sum += $4 + $6} END { print sum }')
+
+		if [[ -z "${num_of_commits}" ]]; then
+			num_of_commits=0
+		fi
+
+		if [[ -z "${num_of_lines}" ]]; then
+			num_of_lines=0
+		fi
+
+		if [[ "${num_of_commits}" -gt "${highest_num_of_commits}" ]]; then
+			highest_num_of_commits=${num_of_commits}
+			highest_num_of_commits_player=${player}
+		fi
+
+		if [[ "${num_of_lines}" -gt "${highest_num_of_lines}" ]]; then
+			highest_num_of_lines=${num_of_lines}
+			highest_num_of_lines_player=${player}
+		fi
+
+		echo "Results for ${player}:"
+		echo "  # of commits        : ${num_of_commits}"
+		echo "  # of lines committed: ${num_of_lines}"
+	done
+
+	if [[ "${highest_num_of_commits}" -gt 0 ]]; then
+		echo ""
+		echo "${highest_num_of_commits_player} wins in commit count with ${highest_num_of_commits} commits!"
+		echo "${highest_num_of_lines_player} wins in number of lines commited with ${highest_num_of_lines} lines!"
+
+		if [[ "${highest_num_of_commits_player}" = "${highest_num_of_lines_player}" ]]; then
+			echo ""
+			echo "${highest_num_of_commits_player} is the overall winner!!"
+		fi
+	fi
+}
+
+main "${@}"
