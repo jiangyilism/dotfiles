@@ -1,0 +1,6 @@
+--expensive-definedness-checks=yes
+--leak-check=full
+--memcheck:leak-check=full
+--show-leak-kinds=all
+--track-origins=yes
+

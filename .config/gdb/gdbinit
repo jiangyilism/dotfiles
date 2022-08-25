@@ -1,0 +1,19 @@
+set auto-load safe-path /
+
+set history remove-duplicates 4
+set history save on
+set history size 65536
+
+set pagination off
+
+set print array on
+set print array-indexes on
+set print asm-demangle on
+set print demangle on
+set print object on
+set print pretty on
+set print static-members on
+set print symbol-filename on
+set print vtbl on     
+
+set style enabled on
