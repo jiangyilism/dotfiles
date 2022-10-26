@@ -1,11 +1,18 @@
+if [[ ! -o interactive ]]; then
+	return
+fi
+
 . "${HOME}/.config/shell/common.sh"
 
-#setopt sharehistory      #Share history across terminals
-setopt appendhistory     #Append history to the history file (no overwriting)
+#setopt sharehistory         #Share history across terminals
+setopt appendhistory        #Append history to the history file (no overwriting)
 setopt auto_param_slash
-setopt incappendhistory  #Immediately append to the history file, not just when a term is killed
+setopt globdots
+setopt hist_ignore_dups
+setopt inc_append_history   #Immediately append to the history file, not just when a term is killed
 setopt mark_dirs
 setopt sh_word_split
+
 unsetopt auto_menu
 unsetopt menu_complete
 

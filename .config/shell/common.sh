@@ -6,8 +6,6 @@ alias du='du --human-readable'
 alias free='free --human --total'
 alias fstrim='sudo fstrim --verbose'
 alias grep='grep --color=auto --exclude-dir=.git --binary-files=without-match --line-number'
-alias ll='ls -l --classify --human-readable'
-alias ls='ls --color=auto --all'
 alias lspci='sudo lspci'
 alias mount='sudo mount'
 alias open='xdg-open'
@@ -16,6 +14,17 @@ alias umount='sudo umount'
 alias updatedb='sudo updatedb'
 alias reboot='sudo reboot'
 alias reset='tput reset'
+alias su='su --shell=${SHELL}'
+
+if command -v exa &>/dev/null; then
+	alias ls='exa --color=auto --all --sort=Name --across --classify'
+	alias ll='ls --long'
+else
+	alias ls='ls --color=auto --almost-all --classify --human-readable'
+	alias ll='ls -l'
+fi
+
+stty -ixon
 
 function dates() {
 	for timezone in Asia/Saigon Asia/Taipei Europe/Berlin; do

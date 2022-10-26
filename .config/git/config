@@ -9,11 +9,16 @@
 	ls = log --oneline
 	sh = show -w
 	st = status
+	sw = switch
+	unstage = reset HEAD --
 [am]
 	threeWay = true
 [branch]
 	autosetupmerge = always
 	autosetuprebase = always
+[checkout]
+	defaultRemote = origin
+	workers = 8
 [color]
 	interactive = auto
 	pager = true
@@ -58,7 +63,9 @@
 [pull]
 	rebase = true
 [push]
+	autoSetupRemote = true
 	default = current
+	useForceIfIncludes = true
 [rebase]
 	abbreviateCommands = true
 	autoSquash = true
@@ -77,3 +84,4 @@
 	name = Jiang Yi
 [credential]
 	helper = cache
+
