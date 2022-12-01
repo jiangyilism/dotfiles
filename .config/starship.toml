@@ -1,0 +1,62 @@
+command_timeout = 1000
+continuation_prompt = "▶▶ "
+format = """
+$username\
+$hostname\
+$directory\
+$shell\
+$localip\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$env_var\
+$custom\
+$cmd_duration\
+$line_break\
+$time\
+$status\
+$character"""
+
+[character]
+error_symbol = "[✖](bold red) "
+
+[cmd_duration]
+min_time = 1000
+
+[custom]
+disabled = true
+
+[directory]
+truncate_to_repo = false
+truncation_length = 12
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+[hostname]
+format = "[$ssh_symbol$hostname]($style):"
+ssh_only = false
+
+[localip]
+disabled = false
+ssh_only = false
+
+[shell]
+bash_indicator = "bash"
+fish_indicator = "fish"
+format = "#![$indicator]($style) "
+powershell_indicator = "powershell"
+disabled = false
+
+[status]
+disabled = false
+format = "[$symbol $status]($style) "
+
+[time]
+disabled = false
+format = "[$time]($style) "
+
+[username]
+format = "[$user]($style)@"
+show_always = true

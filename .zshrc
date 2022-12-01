@@ -29,18 +29,7 @@ bindkey -e
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-export PS1='%B%F{blue}%n%f:%F{blue}%d%f$ %b'
-
-function preexec() {
-	local -r cmd="${1}"
-
-	print -Pn "\e]2;${cmd}\a"
-	start_cmd_timer
-}
-
-function precmd() {
-	prompt_command
-}
-
-start_cmd_timer
+if command -v starship &>/dev/null; then
+	eval "$(starship init zsh)"
+fi
 
