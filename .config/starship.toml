@@ -1,5 +1,5 @@
 command_timeout = 1000
-continuation_prompt = "▶▶ "
+continuation_prompt = ">> "
 format = """
 $username\
 $hostname\
@@ -19,7 +19,8 @@ $status\
 $character"""
 
 [character]
-error_symbol = "[✖](bold red) "
+error_symbol = "[\\]](bold red) "
+success_symbol = "[\\[0\\]](bold green) "
 
 [cmd_duration]
 min_time = 1000
@@ -51,7 +52,7 @@ disabled = false
 
 [status]
 disabled = false
-format = "[$symbol $status]($style) "
+format = "[\\[$status]($style)"
 
 [time]
 disabled = false

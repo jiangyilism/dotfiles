@@ -4,23 +4,23 @@ set -xueo pipefail
 
 function assert_running_as_root() {
 	if [[ "${EUID}" -ne 0 ]]; then
-		echo "Need root permission"
-		exit 1
+		sudo bash "${0}" "${@}"
+		exit "${?}"
 	fi
 }
 
 function apt_upgrade() {
-	apt update -y
-	apt upgrade -y
-	apt dist-upgrade -y
-	apt autoremove -y
-	apt autoclean -y
-	apt remove -y
-	apt clean -y
-	updatedb
+	apt update --yes
+	apt upgrade --yes
+	apt dist-upgrade --yes
+	apt autoremove --yes
+	apt autoclean --yes
+	apt remove --yes
+	apt clean --yes
 }
 
 function emerge_upgrade() {
+	eix-sync
 	emerge --verbose \
 		--ask \
 		--deep \
@@ -32,17 +32,22 @@ function emerge_upgrade() {
 		@world
 }
 
+function post_upgrade() {
+	updatedb
+}
+
 function main() {
 	assert_running_as_root
 
-	if command -v apt &> /dev/null; then
+	if command -v apt &>/dev/null; then
 		apt_upgrade
-	elif command -v emerge &> /dev/null; then
-		emerge_upgrade
-	else
-		echo "unsupported package manager. quitting now."
-		exit 0
 	fi
+
+	if command -v emerge &>/dev/null; then
+		emerge_upgrade
+	fi
+
+	post_upgrade
 }
 
 tput reset

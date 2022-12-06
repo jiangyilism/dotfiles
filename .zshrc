@@ -5,7 +5,7 @@ fi
 . "${HOME}/.config/shell/common.sh"
 
 #setopt sharehistory         #Share history across terminals
-setopt appendhistory        #Append history to the history file (no overwriting)
+setopt appendhistory
 setopt auto_param_slash
 setopt globdots
 setopt hist_ignore_dups
@@ -28,6 +28,10 @@ compinit -d "${XDG_CACHE_HOME}/zsh/zcompdump-${ZSH_VERSION}"
 bindkey -e
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+bindkey "^[[3;5~" delete-word
+bindkey "^H" backward-delete-word
+
+export WORDCHARS="_-"
 
 if command -v starship &>/dev/null; then
 	eval "$(starship init zsh)"
