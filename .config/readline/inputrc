@@ -4,6 +4,7 @@ $include /etc/inputrc
 "\C-?": backward-kill-word
 "\C-h": backward-kill-word
 "\C-w": unix-filename-rubout 
+"\es":"\C-asudo "
 
 set bind-tty-special-chars off
 set completion-ignore-case on
@@ -15,4 +16,3 @@ set page-completions off
 set show-all-if-ambiguous on
 set skip-completed-text on
 set visible-stats on
-

@@ -1,6 +1,4 @@
-
-. "${HOME}/.config/shell/envvar.sh"
-. "${HOME}/.config/shell/alias.sh"
+. "${XDG_CONFIG_HOME}/shell/alias.sh"
 
 stty -ixon
 
@@ -13,7 +11,6 @@ function set_win_title() {
     echo -ne "\033]0;$(basename "${PWD}")\a"
 }
 
-if [[ -f "${HOME}/.shrc_additional" ]]; then
-	. "${HOME}/.shrc_additional"
+if [[ -f "${HOME}/.shrc_extra" ]]; then
+	. "${HOME}/.shrc_extra"
 fi
-

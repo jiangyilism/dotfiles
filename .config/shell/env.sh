@@ -1,4 +1,3 @@
-
 export PATH=$(echo -n "${HOME}/.local/bin${PATH:+:${PATH}}" | \
 	awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 
@@ -17,11 +16,16 @@ export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
 export LESSHISTFILE="/dev/null"
 export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
 
-type nvim &> /dev/null && export EDITOR="nvim" \
-	|| export EDITOR="vim"
+if command -v nvim &>/dev/null; then
+	export EDITOR="nvim"
+else
+	export EDITOR="vim"
+fi
 
 export VISUAL="${EDITOR}"
 
-type most &> /dev/null && export PAGER="most" \
-	|| export PAGER="less"
-
+if command -v most &>/dev/null; then
+	export PAGER="most"
+else
+	export PAGER="less"
+fi

@@ -1,8 +1,10 @@
+. "${HOME}/.config/shell/env.sh"
+
 if [[ ! "${-}" = *i* ]]; then
 	return
 fi
 
-. "${HOME}/.config/shell/common.sh"
+. "${XDG_CONFIG_HOME}/shell/interactive.sh"
 
 shopt -s checkwinsize
 shopt -s histappend
@@ -22,7 +24,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
+bind -x '"\C-l":tput reset'
+
+function cd() {
+	builtin cd "${@}" && ls && echo -ne "\033]0;$(basename "${PWD}")\a"                         
+}
+
 if command -v starship &>/dev/null; then
 	eval "$(starship init bash)"
 fi
-
