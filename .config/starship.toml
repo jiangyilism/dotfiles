@@ -29,6 +29,7 @@ min_time = 1000
 disabled = true
 
 [directory]
+read_only = ""
 truncate_to_repo = false
 truncation_length = 12
 
@@ -38,6 +39,9 @@ format = "[$symbol$branch(:$remote_branch)]($style) "
 [hostname]
 format = "[$ssh_symbol$hostname]($style):"
 ssh_only = false
+
+[jobs]
+disabled = true
 
 [localip]
 disabled = false

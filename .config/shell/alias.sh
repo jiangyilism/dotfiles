@@ -18,7 +18,6 @@ alias fstrim='sudo fstrim --verbose'
 alias grep='grep --color=auto --exclude-dir=.git --binary-files=without-match --line-number'
 alias ifconfig='grc ifconfig -v'
 alias ip='ip -color=auto'
-alias less='${PAGER}'
 alias ln='ln --interactive --verbose'
 alias lsblk='grc lsblk'
 alias lsmod='grc lsmod'
@@ -51,6 +50,9 @@ fi
 
 if command -v bat &>/dev/null; then
 	alias cat='bat --paging=never --tabs=8'
+	alias less='bat --tabs=8'
+else
+	alias less='${PAGER}'
 fi
 
 if command -v exa &>/dev/null; then
