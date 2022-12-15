@@ -31,11 +31,14 @@ function goto_parent_dir() {
 
 function expand_alias() {
 	emulate -L zsh
+	local -r -a words=(${(Az)LBUFFER})
+	local -r -i num_of_words="${#words}"
+	local -r word="${words[-1]}"
+	local -r first_word="${words[1]}"
 	local -i is_sudo=0
-	readonly word="${${(Az)LBUFFER}[-1]}"
 
-	if [[ ${#${(Az)LBUFFER}} -eq 2 ]] &&
-		[[ "${${(Az)LBUFFER}[1]}" = "sudo" ]]; then
+	if [[ "${num_of_words}" -eq 2 ]] &&
+		[[ "${first_word}" = "sudo" ]]; then
 		is_sudo=1
 		BUFFER="${word}"
 	fi

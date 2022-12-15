@@ -2,6 +2,8 @@ if [[ ! -o interactive ]]; then
 	return
 fi
 
+unset skip_global_compinit
+
 if command -v starship &>/dev/null; then
 	eval "$(starship init zsh)"
 fi

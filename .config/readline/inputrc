@@ -4,7 +4,8 @@ $include /etc/inputrc
 "\C-?": backward-kill-word
 "\C-h": backward-kill-word
 "\C-w": unix-filename-rubout 
-"\es":"\C-asudo "
+"\es": "\C-asudo \C-e"
+"\e[1;3A": "cd ..\n"
 
 set bind-tty-special-chars off
 set completion-ignore-case on
