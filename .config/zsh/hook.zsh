@@ -12,7 +12,11 @@ add-zsh-hook chpwd () {
 }
 
 add-zsh-hook preexec () {
-	if [[ "${1}" = "${3}" ]] || [[ -z "${3}" ]]; then
+	local -r trimmed_input="${1//+([[:space:]])}"
+	local -r trimmed_expanded_input="${3//+([[:space:]])}"
+
+	if [[ "${trimmed_input}" = "${trimmed_expanded_input}" ]] ||
+		[[ -z "${trimmed_expanded_input}" ]]; then
 		return
 	fi
 

@@ -16,7 +16,9 @@ setopt correct
 setopt correctall
 
 # glob
+setopt extended_glob
 setopt glob_dots
+setopt ksh_glob
 setopt mark_dirs
 
 # history

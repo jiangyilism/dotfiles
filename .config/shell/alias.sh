@@ -49,8 +49,8 @@ if command -v batcat &>/dev/null; then
 fi
 
 if command -v bat &>/dev/null; then
-	alias cat='bat --paging=never --tabs=8'
-	alias less='bat --tabs=8'
+	alias cat='bat --tabs=8'
+	alias less='cat'
 else
 	alias less='${PAGER}'
 fi

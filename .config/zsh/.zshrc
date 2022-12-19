@@ -18,6 +18,14 @@ unset zsh_file
 
 export WORDCHARS="_-"
 
-. ${HOME}/Desktop/temp/zsh-autosuggestions.zsh
-. ${HOME}/Desktop/temp/zsh-history-substring-search.zsh
-. ${HOME}/Desktop/temp/zsh-syntax-highlighting.zsh
+plugins=(zsh-autosuggestions zsh-syntax-highlighting)
+
+for plugin in ${plugins}; do
+	if [[ -f "/usr/share/zsh/site-functions/${plugin}/${plugin}.zsh" ]]; then
+		. "/usr/share/zsh/site-functions/${plugin}/${plugin}.zsh"
+	else
+		. "/usr/share/${plugin}/${plugin}.zsh"
+	fi
+done
+
+unset plugin
