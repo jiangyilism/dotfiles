@@ -21,8 +21,8 @@ export WORDCHARS="_-"
 plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 for plugin in ${plugins}; do
-	if [[ -f "/usr/share/zsh/site-functions/${plugin}/${plugin}.zsh" ]]; then
-		. "/usr/share/zsh/site-functions/${plugin}/${plugin}.zsh"
+	if [[ -f "/usr/share/zsh/site-functions/${plugin}.zsh" ]]; then
+		. "/usr/share/zsh/site-functions/${plugin}.zsh"
 	else
 		. "/usr/share/${plugin}/${plugin}.zsh"
 	fi
