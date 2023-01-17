@@ -38,7 +38,6 @@
 	changed = yellow bold
 	untracked = red bold
 [core]
-	editor = vim
 	excludesfile = ~/.gitignore
 	whitespace = fix,space-before-tab,trailing-space,cr-at-eol,-indent-with-non-tab
 [diff]

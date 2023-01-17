@@ -22,7 +22,7 @@ function apt_upgrade() {
 function emerge_upgrade() {
 	eix-sync
 	emerge --verbose \
-		--ask \
+		--ask=y \
 		--deep \
 		--changed-use \
 		--newuse \
@@ -39,13 +39,19 @@ function post_upgrade() {
 function main() {
 	assert_running_as_root
 
-	if command -v apt &>/dev/null; then
-		apt_upgrade
-	fi
+	local -r distro_name="$(lsb_release --id --short)"
 
-	if command -v emerge &>/dev/null; then
-		emerge_upgrade
-	fi
+	case "${distro_name}" in
+		Gentoo)
+			emerge_upgrade
+			;;
+		Ubuntu)
+			apt_upgrade
+			;;
+		*)
+			echo "Unsupported distro ${distro_name}"
+			;;
+	esac
 
 	post_upgrade
 }

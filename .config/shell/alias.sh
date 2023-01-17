@@ -37,6 +37,7 @@ alias uname='uname --all'
 alias updatedb='sudo updatedb'
 alias reboot='sudo reboot'
 alias reset='tput reset'
+alias rg='rg --follow --hidden --no-heading --trim'
 alias rm='rm --interactive --verbose'
 alias stat='grc stat'
 alias su='su --shell=${SHELL} -'
@@ -52,6 +53,7 @@ if command -v bat &>/dev/null; then
 	alias cat='bat --tabs=8'
 	alias less='cat'
 else
+	echo "Missing bat"
 	alias less='${PAGER}'
 fi
 
@@ -60,6 +62,7 @@ if command -v exa &>/dev/null; then
 	alias ll='ls --long'
 	alias tree='exa --tree'
 else
+	echo "Missing exa"
 	alias ls='ls --color=auto --almost-all --classify --human-readable'
 	alias ll='ls -l'
 	alias tree='tree -C'
@@ -68,6 +71,7 @@ fi
 if command -v grc &>/dev/null; then
 	alias grc='grc --colour=auto'
 else
+	echo "Missing grc"
 	alias grc=''
 fi
 

@@ -6,6 +6,8 @@ unset skip_global_compinit
 
 if command -v starship &>/dev/null; then
 	eval "$(starship init zsh)"
+else
+	echo "Missing starship"
 fi
 
 . "${ZDOTDIR:h}/shell/interactive.sh"
@@ -23,8 +25,10 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 for plugin in ${plugins}; do
 	if [[ -f "/usr/share/zsh/site-functions/${plugin}.zsh" ]]; then
 		. "/usr/share/zsh/site-functions/${plugin}.zsh"
-	else
+	elif [[ -f "/usr/share/${plugin}/${plugin}.zsh" ]]; then
 		. "/usr/share/${plugin}/${plugin}.zsh"
+	else
+		echo "Plugin ${plugin} not found"
 	fi
 done
 
