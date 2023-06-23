@@ -68,6 +68,10 @@ else
 	alias tree='tree -C'
 fi
 
+if command -v fdfind &>/dev/null; then
+	alias fd='fdfind'
+fi
+
 if command -v grc &>/dev/null; then
 	alias grc='grc --colour=auto'
 else

@@ -25,6 +25,8 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 for plugin in ${plugins}; do
 	if [[ -f "/usr/share/zsh/site-functions/${plugin}.zsh" ]]; then
 		. "/usr/share/zsh/site-functions/${plugin}.zsh"
+	elif [[ -f "/usr/share/zsh/site-contrib/${plugin}/${plugin}.zsh" ]]; then
+		. "/usr/share/zsh/site-contrib/${plugin}/${plugin}.zsh"
 	elif [[ -f "/usr/share/${plugin}/${plugin}.zsh" ]]; then
 		. "/usr/share/${plugin}/${plugin}.zsh"
 	else
