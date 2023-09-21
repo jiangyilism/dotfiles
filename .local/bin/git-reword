@@ -5,7 +5,8 @@
 set -xueo pipefail
 
 function main() {
-	local -r commit_id="$(git rev-parse --short "${1}")"
+	local -r commit="${1:-HEAD}"
+	local -r commit_id="$(git rev-parse --short "${commit}")"
 
 	cd_to_toplevel
 	git stash push --message "git-reword-${commit_id}"
