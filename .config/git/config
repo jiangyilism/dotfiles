@@ -58,6 +58,8 @@
 [github]
 	token = token
 	user = jiangyilism
+[init]
+	defaultBranch = master
 [merge]
 	autoStash = true
 [pull]
