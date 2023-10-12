@@ -5,6 +5,8 @@
 	branch-name = rev-parse --abbrev-ref HEAD
 	co = checkout
 	df = diff -w
+	format = clang-format --force --verbose
+	format-all = "!cd \"$(git rev-parse --show-toplevel)\"; find . -iname *.h -o -iname *.cpp -o -iname *.cxx | xargs clang-format -i --verbose --Werror"
 	lg = log
 	ls = log --oneline
 	remaster = "!f() { git fetch origin master:master; git rebase master; }; f"
