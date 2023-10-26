@@ -27,7 +27,7 @@ fi
 bind -x '"\C-l":tput reset'
 
 function cd() {
-	builtin cd "${@}" && ls && echo -ne "\033]0;$(basename "${PWD}")\a"                         
+	builtin cd "${@}" && ls && echo -ne "\033]0;$(basename "${PWD}")\a"
 }
 
 if command -v starship &>/dev/null; then

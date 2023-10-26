@@ -11,8 +11,7 @@ function assert_running_as_root() {
 
 function apt_upgrade() {
 	apt update --yes
-	apt upgrade --yes
-	apt dist-upgrade --yes
+	apt full-upgrade --yes
 	apt autoremove --yes
 	apt autoclean --yes
 	apt remove --yes

@@ -15,6 +15,9 @@ export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
 export INPUTRC="${XDG_CONFIG_HOME}/readline/inputrc"
 export LESSHISTFILE="/dev/null"
 export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
+export KDEHOME="${XDG_CONFIG_HOME}/kde"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 
 if command -v nvim &>/dev/null; then
 	export EDITOR="nvim"
@@ -29,4 +32,8 @@ if command -v most &>/dev/null; then
 	export PAGER="most"
 else
 	export PAGER="less"
+fi
+
+if [[ -f "${CARGO_HOME}/env" ]]; then
+	. "${CARGO_HOME}/env"
 fi

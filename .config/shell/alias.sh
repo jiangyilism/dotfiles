@@ -37,11 +37,12 @@ alias uname='uname --all'
 alias updatedb='sudo updatedb'
 alias reboot='sudo reboot'
 alias reset='tput reset'
-alias rg='rg --follow --hidden --no-heading --trim'
+alias rg='rg --follow --hidden --no-heading --trim --max-columns=256'
 alias rm='rm --interactive --verbose'
 alias stat='grc stat'
 alias su='su --shell=${SHELL} -'
 alias sudo='sudo '
+alias synaptic='sudo synaptic'
 alias systemctl='sudo systemctl'
 alias type='type -a'
 
@@ -57,12 +58,12 @@ else
 	alias less='${PAGER}'
 fi
 
-if command -v exa &>/dev/null; then
-	alias ls='exa --color=auto --all --sort=Name --across --classify'
-	alias ll='ls --long'
-	alias tree='exa --tree'
+if command -v eza &>/dev/null; then
+	alias ls='eza --color=auto --all --sort=Name --across --classify'
+	alias ll='ls --header --long --time-style=long-iso'
+	alias tree='ll --tree'
 else
-	echo "Missing exa"
+	echo "Missing eza"
 	alias ls='ls --color=auto --almost-all --classify --human-readable'
 	alias ll='ls -l'
 	alias tree='tree -C'
