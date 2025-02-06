@@ -81,8 +81,6 @@
 	quiet = false
 [sendemail]
 	confirm = always
-[sequence]
-	editor = vim
 [user]
 	email = jiangyilism@gmail.com
 	name = Jiang Yi

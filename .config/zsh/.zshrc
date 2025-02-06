@@ -1,3 +1,5 @@
+# vi: ft=sh
+
 if [[ ! -o interactive ]]; then
 	return
 fi
@@ -29,6 +31,8 @@ for plugin in ${plugins}; do
 		. "/usr/share/zsh/site-contrib/${plugin}/${plugin}.zsh"
 	elif [[ -f "/usr/share/${plugin}/${plugin}.zsh" ]]; then
 		. "/usr/share/${plugin}/${plugin}.zsh"
+	elif [[ -f "/usr/share/zsh/plugins/${plugin}/${plugin}.zsh" ]]; then
+		. "/usr/share/zsh/plugins/${plugin}/${plugin}.zsh"
 	else
 		echo "Plugin ${plugin} not found"
 	fi

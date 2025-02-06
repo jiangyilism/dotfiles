@@ -26,6 +26,7 @@ else
 fi
 
 export VISUAL="${EDITOR}"
+export GIT_EDITOR="${EDITOR}"
 
 if command -v most &>/dev/null; then
 	export GIT_PAGER="less"

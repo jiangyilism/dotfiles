@@ -59,7 +59,7 @@ else
 fi
 
 if command -v eza &>/dev/null; then
-	alias ls='eza --color=auto --all --sort=Name --across --classify'
+	alias ls='eza --color=auto --all --sort=Name --across --classify=always'
 	alias ll='ls --header --long --time-style=long-iso'
 	alias tree='ll --tree'
 else
@@ -97,6 +97,6 @@ function vim() {
 	if command -v nvim &>/dev/null; then
 		nvim "${@}"
 	else
-		vim "${@}"
+		command vim "${@}"
 	fi
 }
