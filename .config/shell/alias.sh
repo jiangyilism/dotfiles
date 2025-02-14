@@ -79,24 +79,3 @@ else
 	echo "Missing grc"
 	alias grc=''
 fi
-
-function vim() {
-	local filepath
-
-	for filepath in "${@}"; do
-		if [[ "${filepath}" = -* ]] || [[ ! -e "${filepath}" ]]; then
-			continue
-		fi
-
-		if [[ ! -w "${filepath}" ]]; then
-			echo "sudo vim ${@}"
-			return
-		fi
-	done
-
-	if command -v nvim &>/dev/null; then
-		nvim "${@}"
-	else
-		command vim "${@}"
-	fi
-}
