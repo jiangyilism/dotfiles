@@ -28,6 +28,7 @@ alias mount='sudo grc mount --verbose'
 alias mv='mv --interactive --verbose'
 alias netstat='grc netstat'
 alias open='xdg-open'
+alias pacman='sudo pacman'
 alias ping='grc ping'
 alias ping6='grc ping6'
 alias poweroff='sudo poweroff'
@@ -79,3 +80,4 @@ else
 	echo "Missing grc"
 	alias grc=''
 fi
+
