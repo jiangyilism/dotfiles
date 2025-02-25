@@ -32,4 +32,13 @@ function cd() {
 
 if command -v starship &>/dev/null; then
 	eval "$(starship init bash)"
+else
+	echo "Missing starship"
 fi
+
+if command -v fzf &>/dev/null; then
+	eval "$(fzf --bash)"
+else
+	echo "Missing fzf"
+fi
+

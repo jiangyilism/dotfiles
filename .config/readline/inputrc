@@ -1,9 +1,9 @@
 $include /etc/inputrc
 
 "\C-\x7F": backward-kill-word
-"\C-?": backward-kill-word
+#"\C-?": backward-kill-word
 "\C-h": backward-kill-word
-"\C-w": unix-filename-rubout 
+"\C-w": unix-filename-rubout
 "\es": "\C-asudo \C-e"
 "\e[1;3A": "cd ..\n"
 

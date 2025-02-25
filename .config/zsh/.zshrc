@@ -12,6 +12,12 @@ else
 	echo "Missing starship"
 fi
 
+if command -v fzf &>/dev/null; then
+	source <(fzf --zsh)
+else
+	echo "Missing fzf"
+fi
+
 . "${ZDOTDIR:h}/shell/interactive.sh"
 
 for zsh_file in setopt completion bindkey func hook history; do

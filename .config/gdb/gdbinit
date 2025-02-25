@@ -1,5 +1,7 @@
 set auto-load safe-path /
 
+set debuginfod enabled on
+
 set history remove-duplicates 4
 set history save on
 set history size 65536
@@ -17,3 +19,12 @@ set print symbol-filename on
 set print vtbl on
 
 set style enabled on
+
+define hook-quit
+    set confirm off
+end
+
+define hook-run
+    set confirm off
+end
+
