@@ -18,6 +18,7 @@ export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
 export KDEHOME="${XDG_CONFIG_HOME}/kde"
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export PYTEST_ADDOPTS="-vvv"
 
 if command -v nvim &>/dev/null; then
 	export EDITOR="nvim"

@@ -1,5 +1,11 @@
 # vi: ft=sh
 
+# workaround: disable fancy stuffs on tmux
+if [[ -n "${TMUX}" ]]; then
+	return
+fi
+
+
 if [[ ! -o interactive ]]; then
 	return
 fi
