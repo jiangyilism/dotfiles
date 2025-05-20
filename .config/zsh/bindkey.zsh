@@ -1,33 +1,33 @@
-function dirstack_shift() {                                                                   
-        setopt localoptions nopushdminus                                                            
-                                                                                                    
-        if [[ ${#dirstack} -eq 0 ]]; then                                                           
-                return                                                                              
-        fi                                                                                          
-                                                                                                    
-        while ! builtin pushd -q "${1}" &>/dev/null; do                                             
-                builtin popd -q "${1}"                                                              
-                                                                                                    
-                if [[ ${#dirstack} -eq 0 ]]; then                                                   
-                        break                                                                       
-                fi                                                                                  
-        done                                                                                        
-                                                                                                    
-        zle reset-prompt                                                                            
-}                                                                                                   
-                                                                                                    
-function dirstack_shift_left() {                                                              
-        dirstack_shift "+1"                                                                   
-}                                                                                                   
-                                                                                                    
-function dirstack_shift_right() {                                                             
-        dirstack_shift  "-0"                                                                
-}                                                                                                   
-                                                                                                    
-function goto_parent_dir() {                                                                        
-        cd ..                                                                                       
-        zle reset-prompt                                                                            
-}                      
+function dirstack_shift() {
+	setopt localoptions nopushdminus
+
+	if [[ ${#dirstack} -eq 0 ]]; then
+		return
+	fi
+
+	while ! builtin pushd -q "${1}" &>/dev/null; do
+		builtin popd -q "${1}"
+
+		if [[ ${#dirstack} -eq 0 ]]; then
+			break
+		fi
+	done
+
+	zle reset-prompt
+}
+
+function dirstack_shift_left() {
+	dirstack_shift "+1"
+}
+
+function dirstack_shift_right() {
+	dirstack_shift "-0"
+}
+
+function goto_parent_dir() {
+	cd ..
+	zle reset-prompt
+}
 
 function expand_dollar_underscore() {
 	emulate -L zsh
@@ -65,7 +65,7 @@ function reset_term() {
 	emulate -L zsh
 	zle kill-whole-line
 	tput reset
-	zle reset-prompt 
+	zle reset-prompt
 }
 
 bindkey -e

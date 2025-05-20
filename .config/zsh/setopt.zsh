@@ -29,7 +29,7 @@ setopt hist_ignore_space
 setopt hist_find_no_dups
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
-setopt inc_append_history   #Immediately append to the history file, not just when a term is killed
+setopt inc_append_history #Immediately append to the history file, not just when a term is killed
 #setopt sharehistory         #Share history across terminals
 
 # shell

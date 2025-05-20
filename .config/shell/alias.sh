@@ -55,7 +55,7 @@ if command -v bat &>/dev/null; then
 	alias cat='bat --tabs=8'
 	alias less='cat'
 else
-	echo "Missing bat"
+	echo "Missing bat in ${PATH}"
 	alias less='${PAGER}'
 fi
 
@@ -64,20 +64,21 @@ if command -v eza &>/dev/null; then
 	alias ll='ls --header --long --time-style=long-iso'
 	alias tree='ll --tree'
 else
-	echo "Missing eza"
+	echo "Missing eza in PATH ${PATH}"
 	alias ls='ls --color=auto --almost-all --classify --human-readable'
 	alias ll='ls -l'
 	alias tree='tree -C'
 fi
 
 if command -v fdfind &>/dev/null; then
-	alias fd='fdfind'
+	alias fd='fdfind --full-path --unrestricted'
+else
+	alias fd='fd --full-path --unrestricted'
 fi
 
 if command -v grc &>/dev/null; then
 	alias grc='grc --colour=auto'
 else
-	echo "Missing grc"
+	echo "Missing grc in PATH ${PATH}"
 	alias grc=''
 fi
-

@@ -8,7 +8,7 @@ mkdir --parents "${XDG_CACHE_HOME}/gdb" \
 	"${XDG_RUNTIME_DIR}"
 
 function set_win_title() {
-    echo -ne "\033]0;$(basename "${PWD}")\a"
+	echo -ne "\033]0;$(basename "${PWD}")\a"
 }
 
 if [[ -f "${HOME}/.shrc_extra.sh" ]]; then

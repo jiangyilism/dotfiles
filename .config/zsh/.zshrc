@@ -5,7 +5,6 @@ if [[ -n "${TMUX}" ]]; then
 	return
 fi
 
-
 if [[ ! -o interactive ]]; then
 	return
 fi
@@ -15,13 +14,13 @@ unset skip_global_compinit
 if command -v starship &>/dev/null; then
 	eval "$(starship init zsh)"
 else
-	echo "Missing starship"
+	echo "Missing starship in PATH ${PATH}"
 fi
 
 if command -v fzf &>/dev/null; then
 	source <(fzf --zsh)
 else
-	echo "Missing fzf"
+	echo "Missing fzf in PATH ${PATH}"
 fi
 
 . "${ZDOTDIR:h}/shell/interactive.sh"
