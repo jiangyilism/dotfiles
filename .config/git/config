@@ -1,4 +1,4 @@
-[advise]
+[advice]
 	skippedCherryPicks = false
 [alias]
 	amend = commit --amend --no-edit
