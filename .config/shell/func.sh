@@ -1,3 +1,28 @@
+function _print_git_alias_expansion() {
+	local -r cmd="${1}"
+	local -r subcommand="${2}"
+
+	if [[ -n "${subcommand}" ]]; then
+		local -r alias_value=$(command git config "alias.${subcommand}" 2>/dev/null)
+
+		if [[ -n "${alias_value}" && "${alias_value}" != '!'* ]]; then
+			local -r rest="${@:3}"
+
+			echo -e "\e[1;3;37m-------->>>>  ${cmd} ${alias_value}${rest:+  ${rest}}\e[0m"
+		fi
+	fi
+}
+
+function git() {
+	_print_git_alias_expansion git "$@"
+	command git "$@"
+}
+
+function yadm() {
+	_print_git_alias_expansion yadm "$@"
+	command yadm "$@"
+}
+
 function extract() {
 	local -r filepath="${1}"
 

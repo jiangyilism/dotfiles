@@ -1,4 +1,5 @@
 . "${XDG_CONFIG_HOME}/shell/alias.sh"
+. "${XDG_CONFIG_HOME}/shell/func.sh"
 
 stty -ixon
 

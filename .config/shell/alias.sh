@@ -36,9 +36,10 @@ alias ps='grc ps'
 alias umount='sudo umount --verbose'
 alias uname='uname --all'
 alias updatedb='sudo updatedb'
+alias readelf='reset && readelf --wide'
 alias reboot='sudo reboot'
 alias reset='tput reset'
-alias rg='rg --follow --hidden --no-heading --trim --max-columns=256 "--glob=!.git/*"'
+alias rg='rg --follow --hidden --no-heading --trim --max-columns=256 "--glob=!.git/*" "--glob=!sandbox_stash/*"'
 alias rm='rm --interactive --verbose'
 alias stat='grc stat'
 alias su='su --shell=${SHELL} -'
@@ -71,9 +72,9 @@ else
 fi
 
 if command -v fdfind &>/dev/null; then
-	alias fd='fdfind --full-path --unrestricted'
+	alias fd='fdfind --full-path --unrestricted --exclude="bazel-out"'
 else
-	alias fd='fd --full-path --unrestricted'
+	alias fd='fd --full-path --unrestricted --exclude="bazel-out"'
 fi
 
 if command -v grc &>/dev/null; then

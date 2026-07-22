@@ -3,7 +3,7 @@
 [alias]
 	amend = commit --amend --no-edit
 	br = branch
-	branch-exists = "!f() { git rev-parse --verify ${1}; }; f"
+	branch-exists = rev-parse --verify
 	branch-name = rev-parse --abbrev-ref HEAD
 	co = checkout
 	df = diff -w

@@ -25,7 +25,7 @@ fi
 
 . "${ZDOTDIR:h}/shell/interactive.sh"
 
-for zsh_file in setopt completion bindkey func hook history; do
+for zsh_file in setopt completion bindkey hook history; do
 	. "${ZDOTDIR}/${zsh_file}.zsh"
 done
 
