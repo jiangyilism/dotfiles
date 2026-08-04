@@ -1,0 +1,31 @@
+{
+  // Global VS Code user settings (applies machine-wide for this VS Code server user).
+  //
+  // Copilot has no dedicated setting to force a shell for tool execution.
+  // Using bash as the global default terminal shell is the effective system-wide control.
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "/bin/bash"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "editor.pasteAs.enabled": false,
+
+  // Default C/C++ toolchain preference: LLVM/Clang.
+  // This affects editor/tooling defaults unless a workspace overrides them.
+  "C_Cpp.default.compilerPath": "/usr/bin/clang++",
+  "C_Cpp.default.intelliSenseMode": "linux-clang-x64",
+
+  // Optional CMake Tools defaults to keep configure/build using LLVM unless overridden.
+  "cmake.configureSettings": {
+    "CMAKE_C_COMPILER": "/usr/bin/clang",
+    "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
+  },
+
+  // User-level Copilot custom instruction for explicit bash script generation behavior.
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "file": "~/.config/copilot/instructions/shell-script.instructions.md"
+    }
+  ]
+}

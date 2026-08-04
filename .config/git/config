@@ -90,3 +90,5 @@
 	helper = cache
 [http]
 	proxyAuthMethod = basic
+[include]
+	path = ~/.gitconfig_extra.ini
