@@ -15,6 +15,7 @@
 	sh = show -w
 	st = status
 	sw = switch
+	uncommit = reset --soft HEAD~1
 	unstage = reset HEAD --
 [am]
 	threeWay = true
@@ -72,6 +73,8 @@
 	autoSetupRemote = true
 	default = current
 	useForceIfIncludes = true
+[log]
+	follow = true
 [rebase]
 	abbreviateCommands = true
 	autoSquash = true

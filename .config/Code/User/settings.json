@@ -1,14 +1,42 @@
 {
   // Global VS Code user settings (applies machine-wide for this VS Code server user).
   //
-  // Copilot has no dedicated setting to force a shell for tool execution.
-  // Using bash as the global default terminal shell is the effective system-wide control.
+  // "terminal.integrated.profiles.linux" / "terminal.integrated.defaultProfile.linux" /
+  // "chat.tools.terminal.terminalProfile.linux" below ARE honored by:
+  //   - VS Code's own integrated Terminal panel (terminals a human opens via "+" /
+  //     "Terminal: Create New Terminal") -- this is what these settings exist for.
+  //   - Any extension that creates terminals through the standard
+  //     vscode.window.createTerminal profile-resolution API (e.g. the classic
+  //     GitHub.copilot-chat chat extension, if installed -- not installed in this setup).
+  //
+  // These settings are COMPLETELY IGNORED by the standalone "Agent Host" style Copilot
+  // session used in this environment (`--type=agentHost` running
+  // @github/copilot-linux-x64 --headless --stdio; no classic GitHub.copilot-chat
+  // extension present). Confirmed empirically 2026-09-16: chat.tools.terminal.terminalProfile.linux
+  // was already "bash-clean" for over a month, yet run_in_terminal's shell (child of the
+  // live ptyHost process) was still /bin/zsh -i. That tool bypasses VS Code's terminal-profile
+  // resolution entirely and just inherits $SHELL from the process environment chain
+  // (server-main.js -> agentHost/ptyHost), which in turn comes from how the WSL session/
+  // /etc/passwd set SHELL at boot -- editing these settings has zero effect on it.
+  //
+  // What DOES work for that case: ~/.vscode-server/server-env-setup (a shell script,
+  // sourced by Microsoft's own wslServer.sh before code-server/agentHost/ptyHost start).
+  // `export SHELL=/bin/bash` there overrides the shell for run_in_terminal without touching
+  // /etc/passwd, so normal interactive WSL logins/terminals stay on zsh. Requires killing/
+  // restarting the VS Code server connection (Command Palette: "Remote-WSL: Kill VS Code
+  // Server on Host", then reload window) to take effect -- a settings/window reload alone
+  // is not enough since wslServer.sh only runs once per server connection.
   "terminal.integrated.profiles.linux": {
     "bash": {
       "path": "/bin/bash"
+    },
+    "bash-clean": {
+      "path": "/bin/bash",
+      "args": ["--noprofile", "--norc"]
     }
   },
-  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.linux": "bash-clean",
+  "chat.tools.terminal.terminalProfile.linux": "bash-clean",
   "editor.pasteAs.enabled": false,
 
   // Default C/C++ toolchain preference: LLVM/Clang.
@@ -27,5 +55,96 @@
     {
       "file": "~/.config/copilot/instructions/shell-script.instructions.md"
     }
-  ]
+  ],
+
+  // --- C++ <-> Copilot: keep the editor's own formatting/lint in sync with each repo's
+  // quality gates (clang-format / clang-tidy), so Copilot-written code matches on the first
+  // try instead of needing a separate "now fix formatting" follow-up request.
+  "C_Cpp.clang_format_style": "file",
+  "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.formatOnSave": true
+  },
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.formatOnSave": true
+  },
+
+  // Small save-time hygiene that avoids extra Copilot round trips over trivial whitespace diffs.
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // Keep inline ghost-text suggestions where useful (code, docs), off where they usually are not
+  // (plain text, the source-control commit-message box).
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false
+  },
+  // Chains small follow-on edits without a new chat request.
+  "github.copilot.nextEditSuggestions.enabled": true,
+
+  // Balance token usage: cap how many tool-call round trips agent mode makes on its own per
+  // turn, so it must check back in with you instead of spinning indefinitely on a stuck task.
+  // If this key is not recognized in your VS Code version, search "max requests" in Settings UI.
+  "chat.agent.maxRequests": 25,
+
+  // Auto-approve file-edit tool confirmations for all files (pattern map: glob -> approved).
+  // Edits are still plain local file writes, reviewable/undoable via git; this only skips the
+  // per-edit confirmation dialog, not the file-write itself.
+  "chat.tools.edits.autoApprove": {
+    "**": true
+  },
+
+  // Kept in sync BY HAND with the Windows-side (local) settings.json -- both files should list
+  // the same terminal/URL auto-approve rules so behavior doesn't depend on which settings.json
+  // happened to define a given entry. Update both places together.
+  "chat.tools.terminal.autoApprove": {
+    // Root-anchored /tmp or /private/tmp (bare or as a path prefix); matchCommandLine required since /tmp is an argument, not the subcommand itself
+    "/(?:^|[\\s\"'])\\/(?:private\\/)?tmp(?:\\/|$|[\\s\"';])/": { "approve": true, "matchCommandLine": true },
+    "bazel": true,
+    "cat": true,
+    "command": true,
+    "diff": true,
+    "echo": true,
+    "git add": true,
+    "git bisect": true,
+    "git blame": true,
+    "git branch": true,
+    "git checkout": true,
+    "git clone": true,
+    "git config": true,
+    "git diff": true,
+    "git fetch": true,
+    "git merge": true,
+    "git pull": true,
+    "git rebase": true,
+    "git status": true,
+    "git switch": true,
+    "ps": true,
+    "/usr/bin/rg": true
+  },
+  "chat.tools.urls.autoApprove": {
+    "https://code.visualstudio.com": true,
+    "https://github.com/microsoft/vscode/wiki/*": true,
+    "https://github.com": { "approveRequest": false, "approveResponse": true },
+    "https://registry.bazel.build": true,
+    "https://raw.githubusercontent.com": { "approveRequest": false, "approveResponse": true },
+    "https://www.etlcpp.com": true,
+    "https://packages.ubuntu.com": true,
+    "https://developer.arm.com/documentation": true,
+    "https://support.arm.com/documentation": true,
+    "https://www.bing.com": true,
+    "https://www.publisher-collective.com": true,
+    "https://www.google.com": true,
+    "https://docs.github.com": true,
+    "https://pypi.org": true,
+    "https://bincopy.readthedocs.io": true,
+    "https://duckduckgo.com": true,
+    "https://*.duckduckgo.com": true,
+    "https://fooptrvoid.github.io": true,
+    "https://git-scm.com": true
+  }
 }

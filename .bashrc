@@ -4,6 +4,12 @@ if [[ ! "${-}" = *i* ]]; then
 	return
 fi
 
+if [[ -n "${AI_AGENT}" ]]; then
+	shopt -u -o history
+	unalias -a
+	return
+fi
+
 . "${XDG_CONFIG_HOME}/shell/interactive.sh"
 
 shopt -s checkwinsize
@@ -37,7 +43,11 @@ else
 fi
 
 if command -v fzf &>/dev/null; then
-	eval "$(fzf --bash)"
+#	if fzf --bash >/dev/null 2>&1; then
+		eval "$(fzf --bash)"
+#	elif [[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
+#		. /usr/share/doc/fzf/examples/key-bindings.bash
+#	fi
 else
 	echo "Missing fzf"
 fi

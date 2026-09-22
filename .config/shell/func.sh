@@ -45,15 +45,28 @@ function extract() {
 	*.tar.gz) tar xvzf "${filepath}" -C "${dirname}" ;;
 	*.tar.xz) tar xvJf "${filepath}" -C "${dirname}" ;;
 	*.tar.lzma) tar --lzma xvf "${filepath}" -C "${dirname}" ;;
-	*.bz2) bunzip "${filepath}" ;;
-	*.rar) unrar x "${filepath}" "${dirname}" ;;
-	*.gz) gunzip "${filepath}" ;;
+	*.bz2) bzip2 -dc "${filepath}" >"${dirname}/$(basename "${filepath}" .bz2)" ;;
+	*.rar) unrar x "${filepath}" "${dirname}/" ;;
+	*.gz) gunzip -c "${filepath}" >"${dirname}/$(basename "${filepath}" .gz)" ;;
 	*.tar) tar xvf "${filepath}" -C "${dirname}" ;;
 	*.tbz2) tar xvjf "${filepath}" -C "${dirname}" ;;
 	*.tgz) tar xvzf "${filepath}" -C "${dirname}" ;;
 	*.zip) unzip "${filepath}" -d "${dirname}" ;;
-	*.Z) uncompress "${filepath}" ;;
-	*.7z) 7z x "${filepath}" -o "${dirname}" ;;
-	*) echo "'${filepath}' file type unsupported" ;;
+	*.Z) uncompress -c "${filepath}" >"${dirname}/$(basename "${filepath}" .Z)" ;;
+	*.7z) 7z x "${filepath}" -o"${dirname}" ;;
+	*)
+		echo "'${filepath}' file type unsupported"
+		rmdir "${dirname}"
+		return
+		;;
 	esac
+
+	# Collapse an archive's own single top-level dir so it never nests as dirname/dirname/...
+	if [[ "$(find "${dirname}" -mindepth 1 -maxdepth 1 | wc -l)" -eq 1 ]]; then
+		local -r inner="$(find "${dirname}" -mindepth 1 -maxdepth 1)"
+		if [[ -d "${inner}" ]]; then
+			find "${inner}" -mindepth 1 -maxdepth 1 -exec mv -- {} "${dirname}"/ \;
+			rmdir "${inner}"
+		fi
+	fi
 }

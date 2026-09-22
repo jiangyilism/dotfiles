@@ -1,7 +1,9 @@
 export PATH=$(echo -n "${HOME}/.local/bin${PATH:+:${PATH}}" | \
 	awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 
-export PS4='+\e[90m$(basename ${BASH_SOURCE}):\e[1;36m$(printf "%3d" ${LINENO})\e[90m:$(printf "%-8s" ${FUNCNAME[0]:+${FUNCNAME[0]}: })\e[0m'
+if [ -z "${AI_AGENT}" ]; then
+	export PS4='+\e[90m$(basename ${BASH_SOURCE}):\e[1;36m$(printf "%3d" ${LINENO})\e[90m:$(printf "%-8s" ${FUNCNAME[0]:+${FUNCNAME[0]}: })\e[0m'
+fi
 
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_CONFIG_HOME="${HOME}/.config"

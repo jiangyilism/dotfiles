@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+# Sourced by wslServer.sh before it launches code-server (server-main.js),
+# which forks the agentHost/ptyHost processes that spawn Copilot's
+# run_in_terminal shells. Overrides SHELL only for this VS Code server
+# chain -- does NOT touch /etc/passwd, so manually-opened interactive
+# WSL terminals/logins are unaffected and keep using zsh.
+export SHELL=/bin/bash
